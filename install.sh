@@ -166,8 +166,8 @@ for arch in x86 x64 arm arm64; do
 done
 rm msvcenv.sh
 
-if [ -d "$DEST/bin/$host" ] && [ -x "$(which wine64 2>/dev/null)" ]; then
-    WINEDEBUG=-all wine64 wineboot &>/dev/null
+if [ -d "$DEST/bin/$host" ]; then
+    WINEDEBUG=-all $(command -v wine64 || command -v wine || false) wineboot &>/dev/null
     echo "Build msvctricks ..."
     "$DEST/bin/$host/cl" /EHsc /O2 "$ORIG/msvctricks.cpp"
     if [ $? -eq 0 ]; then
